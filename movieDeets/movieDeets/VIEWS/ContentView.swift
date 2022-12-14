@@ -23,8 +23,17 @@ struct ContentView: View {
                 Spacer()
             }
 
-            List(viewModel.movies, id: \.id) { result in
-                Text(result.title)
+            List {
+                ForEach(viewModel.movies, id: \.id) { result in
+                    HStack {
+                        Image(systemName: "popcorn")
+                        VStack (alignment: .leading) {
+                            Text(result.title)
+                            Text(result.type ?? "")
+                            Text(result.year ?? "")
+                        }
+                    }
+                }
             }
             .listStyle(.plain)
         }
