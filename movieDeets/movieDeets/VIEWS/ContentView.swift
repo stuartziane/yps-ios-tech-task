@@ -11,6 +11,8 @@ struct ContentView: View {
     
     @StateObject var viewModel: ViewModel
     
+    @State private var animate = false
+    
     init(apiManager: APIManagerProtocol) {
         _viewModel = StateObject(wrappedValue: ViewModel(apiManager: apiManager))
     }
@@ -18,8 +20,25 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                SearchBar(viewModel: viewModel)
-                    .padding(.horizontal, 20)
+                if !viewModel.hasNetworkConnectivity {
+                    Rectangle()
+                        .frame(height: 40)
+                        .foregroundColor(.red)
+                        .opacity(animate ? 1.0 : 0.0)
+                        .onAppear {
+                            withAnimation(Animation.linear(duration: 1.5).repeatForever(autoreverses: true)) {
+                                animate.toggle()
+                            }
+                        }
+                        .overlay {
+                            Text("Your device is currently offline")
+                                .font(.footnote)
+                                .foregroundColor(.white)
+                        }
+                } else {
+                    SearchBar(viewModel: viewModel)
+                        .padding(.horizontal, 20)
+                }
                 Spacer()
             }
             
@@ -32,11 +51,16 @@ struct ContentView: View {
 
             if !viewModel.movies.isEmpty {
                 List {
-                    ForEach(viewModel.movies, id: \.id) { result in
-                        NavigationLink(value: result) {
-                            SearchResultRowView(result: result)
+                    if viewModel.hasNetworkConnectivity {
+                        ForEach(viewModel.movies, id: \.id) { result in
+                            NavigationLink(value: result) {
+                                SearchResultRowView(result: result)
+                            }
                         }
+                    } else {
+                       EmptyView()
                     }
+                    
                 }
                 .listStyle(.plain)
                 
@@ -47,7 +71,7 @@ struct ContentView: View {
                 VStack {
                     Spacer()
                     
-                    Text("Search for a movie in the search bar above")
+                    Text(viewModel.hasNetworkConnectivity ? "Search for a movie using the search bar above" : "The search bar will appear above when your device is back online")
                         .multilineTextAlignment(.center)
                         .font(.largeTitle)
                         .fontWeight(.light)

@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import Network
 
 class ViewModel: ObservableObject {
     
@@ -17,12 +18,18 @@ class ViewModel: ObservableObject {
     @Published var alertTitle: String = ""
     @Published var alertBody: String = ""
     
+    @Published var hasNetworkConnectivity: Bool = false
+    
     var cancellables = Set<AnyCancellable>()
     
     var apiManager: APIManagerProtocol
     
+    private let networkMonitor = NWPathMonitor()
+    
     init(apiManager: APIManagerProtocol) {
         self.apiManager = apiManager
+        
+        self.setUpNetworkConnectivityMonitor()
     }
     
     func fetch(searchTerm: String) {
@@ -71,6 +78,35 @@ class ViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
+    }
+    
+    func setUpNetworkConnectivityMonitor() {
+        
+        networkMonitor.pathUpdateHandler = { path in
+            if path.status == .satisfied {
+                if self.hasNetworkConnectivity == true {
+                    return
+                } else {
+                    DispatchQueue.main.async {
+                        self.hasNetworkConnectivity = true
+                    }
+                }
+            } else {
+                if self.hasNetworkConnectivity == false {
+                    return
+                } else {
+                    DispatchQueue.main.async {
+                        self.hasNetworkConnectivity = false
+                        self.alertTitle = "Oops!"
+                        self.alertBody = "Your device is currently offline"
+                        self.alertShowing = true
+                    }
+                }
+            }
+        }
+        
+        let queue = DispatchQueue(label: "NetworkMonitor")
+        networkMonitor.start(queue: queue)
     }
     
     // TODO: Implement pagination

@@ -26,6 +26,9 @@ struct SearchResultRowView: View {
                     .scaledToFit()
                     .frame(width: 75)
                     .shadow(radius: 5)
+                    .overlay {
+                        ProgressView()
+                    }
             }
             
             

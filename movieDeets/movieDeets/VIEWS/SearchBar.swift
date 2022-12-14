@@ -38,7 +38,6 @@ struct SearchBar: View {
                     withAnimation {
                         self.isEditing = false
                     }
-                    self.searchText = ""
                 }
                 .overlay {
                     HStack {
