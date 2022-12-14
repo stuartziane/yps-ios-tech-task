@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+
+// TODO: Refactor into sub-views
+
 struct MovieDetailView: View {
     
     let movie: SearchResultItem
@@ -14,8 +17,8 @@ struct MovieDetailView: View {
     @ObservedObject var viewModel: ViewModel
     
     init(movie: SearchResultItem, viewModel: ViewModel) {
-        self.movie = movie
         _viewModel = ObservedObject(wrappedValue: ViewModel(apiManager: viewModel.apiManager))
+        self.movie = movie
     }
     
     var body: some View {
