@@ -12,7 +12,7 @@ struct SearchResultRowView: View {
     let result: SearchResultItem
     
     var body: some View {
-        HStack {
+        HStack (alignment: .top) {
             
             AsyncImage(url: URL(string: result.poster)) { image in
                 image
@@ -31,10 +31,11 @@ struct SearchResultRowView: View {
             VStack (alignment: .leading) {
                 Text(result.title)
                     .font(.headline)
-                
-                Text(result.type)
+                    .padding(.bottom, 5)
                 Text(result.year)
+                Text(result.type)
             }
+            .padding(.leading, 20)
             
             Spacer()
         }
