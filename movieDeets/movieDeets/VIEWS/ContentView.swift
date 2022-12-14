@@ -18,20 +18,15 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Text("I'm a search bar!")
+                SearchBar(viewModel: viewModel)
                     .padding(.horizontal, 20)
                 Spacer()
             }
-            
-            List {
-                ForEach(viewModel.movies, id: \.id) { result in
-                    Text(result.title)
-                }
+
+            List(viewModel.movies, id: \.id) { result in
+                Text(result.title)
             }
             .listStyle(.plain)
-            .onAppear {
-                viewModel.fetch(searchTerm: "Braveheart")
-            }
         }
     }
 }

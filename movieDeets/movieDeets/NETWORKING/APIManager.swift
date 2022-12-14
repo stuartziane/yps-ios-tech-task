@@ -26,7 +26,6 @@ class APIManager: APIManagerProtocol {
             // We will throw a fatalError for now, but I'll tidy this up later
             fatalError()
         }
-        print(url.absoluteString)
         
         return URLSession.shared.dataTaskPublisher(for: url)
             .map(\.data)
@@ -42,8 +41,6 @@ class APIManager: APIManagerProtocol {
             // We will throw a fatalError for now, but I'll tidy this up later
             fatalError()
         }
-        
-        print(url.absoluteString)
         
         return URLSession.shared.dataTaskPublisher(for: url)
             .map(\.data)

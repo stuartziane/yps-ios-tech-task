@@ -9,7 +9,7 @@ import Foundation
 
 //  Model used for the items in the search results
 
-struct SearchResultItem: Codable, Identifiable {
+struct SearchResultItem: Codable, Identifiable, Hashable {
     let id = UUID()
     let title: String
     let year: String?

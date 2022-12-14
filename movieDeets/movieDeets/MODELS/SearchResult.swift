@@ -11,7 +11,8 @@ import Foundation
     This is the model used for the search result.
 */
 
-struct SearchResult: Codable {
+struct SearchResult: Codable, Identifiable {
+    let id = UUID()
     let search: [SearchResultItem]?
     let totalResults: String?
     let response: String?

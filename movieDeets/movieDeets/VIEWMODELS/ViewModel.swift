@@ -42,13 +42,12 @@ class ViewModel: ObservableObject {
                         self.alertShowing = true
                 }
             } receiveValue: { searchResult in
-                print(searchResult.response!)
                 guard let results = searchResult.search else {
                     print("There was a problem")
                     return
                 }
                 print(results)
-                self.movies += results
+                self.movies = results
             }
             .store(in: &cancellables)
         

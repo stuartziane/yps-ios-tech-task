@@ -9,10 +9,10 @@ import SwiftUI
 
 struct SearchBar: View {
     
-    @ObservedObject var viewModel: ViewModel
+    var viewModel: ViewModel
     
     init(viewModel: ViewModel) {
-        _viewModel = ObservedObject(wrappedValue: ViewModel(apiManager: viewModel.apiManager))
+        self.viewModel = viewModel
     }
     
     @State private var searchText: String = ""
