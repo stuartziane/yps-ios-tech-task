@@ -35,6 +35,21 @@ class APIManager {
     }
     
     
+    func searchByTitle(movieTitle title: String) -> AnyPublisher<SearchResult, Error> {
+        
+        guard let url = buildRequestUrl(queryType: .searchByTitle, with: title) else {
+            // We will throw a fatalError for now, but I'll tidy this up later
+            fatalError()
+        }
+        
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .decode(type: SearchResult.self, decoder: JSONDecoder())
+            .subscribe(on: RunLoop.main)
+            .eraseToAnyPublisher()
+    }
+    
+    
     private func buildRequestUrl(queryType query: QueryType, with string: String) -> URL? {
         
         var urlComponents = URLComponents()
