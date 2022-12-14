@@ -18,7 +18,11 @@ class ViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     
-    private let apiManager = APIManager()
+    private let apiManager: APIManager
+    
+    init(apiManager: APIManager) {
+        self.apiManager = apiManager
+    }
     
     func fetch(searchTerm: String) {
         
