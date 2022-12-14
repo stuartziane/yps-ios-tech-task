@@ -13,7 +13,7 @@ enum QueryType: String {
     case searchById = "i"
 }
 
-class APIManager {
+class APIManager: APIManagerProtocol {
     
     static let apiHost = "www.omdbapi.com"
     

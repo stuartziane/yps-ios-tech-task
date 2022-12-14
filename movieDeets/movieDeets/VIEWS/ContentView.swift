@@ -11,7 +11,7 @@ struct ContentView: View {
     
     @StateObject var viewModel: ViewModel
     
-    init(apiManager: APIManager) {
+    init(apiManager: APIManagerProtocol) {
         _viewModel = StateObject(wrappedValue: ViewModel(apiManager: apiManager))
     }
     

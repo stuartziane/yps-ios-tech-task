@@ -18,9 +18,9 @@ class ViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     
-    var apiManager: APIManager
+    var apiManager: APIManagerProtocol
     
-    init(apiManager: APIManager) {
+    init(apiManager: APIManagerProtocol) {
         self.apiManager = apiManager
     }
     
