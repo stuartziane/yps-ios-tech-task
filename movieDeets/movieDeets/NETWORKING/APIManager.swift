@@ -17,6 +17,24 @@ class APIManager {
     
     static let apiHost = "www.ombdapi"
     
+    
+    // Search API by imdbID
+    
+    func searchById(imdbID id: String) -> AnyPublisher<Movie, Error> {
+        
+        guard let url = buildRequestUrl(queryType: .searchById, with: id) else {
+            // We will throw a fatalError for now, but I'll tidy this up later
+            fatalError()
+        }
+        
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .decode(type: Movie.self, decoder: JSONDecoder())
+            .subscribe(on: RunLoop.main)
+            .eraseToAnyPublisher()
+    }
+    
+    
     private func buildRequestUrl(queryType query: QueryType, with string: String) -> URL? {
         
         var urlComponents = URLComponents()
