@@ -22,25 +22,41 @@ struct ContentView: View {
                     .padding(.horizontal, 20)
                 Spacer()
             }
-
-            List {
-                ForEach(viewModel.movies, id: \.id) { result in
-                    NavigationLink(value: result) {
-                        SearchResultRowView(result: result)
-                    }
-                }
-            }
-            .listStyle(.plain)
             
-            .navigationDestination(for: SearchResultItem.self) { movie in
-                MovieDetailView(movie: movie, viewModel: viewModel)
-            }
             .alert(viewModel.alertTitle, isPresented: $viewModel.alertShowing) {
                 Button("OK", role: .cancel, action: {})
             } message: {
                 Text(viewModel.alertBody)
             }
             .navigationBarTitleDisplayMode(.automatic)
+
+            if !viewModel.movies.isEmpty {
+                List {
+                    ForEach(viewModel.movies, id: \.id) { result in
+                        NavigationLink(value: result) {
+                            SearchResultRowView(result: result)
+                        }
+                    }
+                }
+                .listStyle(.plain)
+                
+                .navigationDestination(for: SearchResultItem.self) { movie in
+                    MovieDetailView(movie: movie, viewModel: viewModel)
+                }
+            } else {
+                VStack {
+                    Spacer()
+                    
+                    Text("Search for a movie in the search bar above")
+                        .multilineTextAlignment(.center)
+                        .font(.largeTitle)
+                        .fontWeight(.light)
+                        .opacity(0.7)
+                    
+                    Spacer()
+                }
+                .padding(20)
+            }
         }
     }
 }
