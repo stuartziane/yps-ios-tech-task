@@ -23,8 +23,7 @@ class APIManager: APIManagerProtocol {
     func searchById(imdbID id: String) -> AnyPublisher<Movie, Error> {
         
         guard let url = buildRequestUrl(queryType: .searchById, with: id) else {
-            // We will throw a fatalError for now, but I'll tidy this up later
-            fatalError()
+            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
         }
         
         return URLSession.shared.dataTaskPublisher(for: url)
@@ -38,8 +37,7 @@ class APIManager: APIManagerProtocol {
     func searchByTitle(movieTitle title: String) -> AnyPublisher<SearchResult, Error> {
         
         guard let url = buildRequestUrl(queryType: .searchByTitle, with: title) else {
-            // We will throw a fatalError for now, but I'll tidy this up later
-            fatalError()
+            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
         }
         
         return URLSession.shared.dataTaskPublisher(for: url)
@@ -59,6 +57,7 @@ class APIManager: APIManagerProtocol {
         
         urlComponents.queryItems = [
             URLQueryItem(name: query.rawValue, value: string),
+            URLQueryItem(name: "plot", value: "full"),
             URLQueryItem(name: "apikey", value: "b620043c")
         ]
         

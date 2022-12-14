@@ -17,8 +17,6 @@ class ViewModel: ObservableObject {
     @Published var alertTitle: String = ""
     @Published var alertBody: String = ""
     
-    
-    
     var cancellables = Set<AnyCancellable>()
     
     var apiManager: APIManagerProtocol
@@ -36,20 +34,19 @@ class ViewModel: ObservableObject {
             .sink { completion in
                 switch completion {
                     case.finished:
-                        print("Finished!")
                         break
                     case .failure(let error):
-                        print(error)
                         self.alertTitle = "An error ocurred!"
-                        self.alertBody = "Please try again"
+                        self.alertBody = "\(error.localizedDescription). Please try again"
                         self.alertShowing = true
                 }
             } receiveValue: { searchResult in
                 guard let results = searchResult.search else {
-                    print("There was a problem")
+                    self.alertTitle = "An error ocurred!"
+                    self.alertBody = "Please try again"
+                    self.alertShowing = true
                     return
                 }
-                print(results)
                 self.movies = results
             }
             .store(in: &cancellables)
@@ -63,17 +60,13 @@ class ViewModel: ObservableObject {
             .sink { completion in
                 switch completion {
                     case.finished:
-                        print("Finished!")
                         break
                     case .failure(let error):
-                        print(error)
                         self.alertTitle = "An error ocurred!"
-                        self.alertBody = "Please try again"
+                        self.alertBody = "\(error.localizedDescription). Please try again"
                         self.alertShowing = true
                 }
             } receiveValue: { searchResult in
-                
-                print(searchResult)
                 self.detailViewMovie = searchResult
             }
             .store(in: &cancellables)
