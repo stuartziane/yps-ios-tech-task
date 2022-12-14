@@ -17,14 +17,15 @@ struct SearchResultRowView: View {
             AsyncImage(url: URL(string: result.poster)) { image in
                 image
                     .resizable()
-                    .frame(width: 100, height: 100)
                     .scaledToFit()
-                    .cornerRadius(10)
+                    .frame(width: 75)
+                    .shadow(radius: 5)
             } placeholder: {
                 Image(systemName: "popcorn")
                     .resizable()
-                    .frame(width: 100, height: 100)
-                    .foregroundColor(.blue)
+                    .scaledToFit()
+                    .frame(width: 75)
+                    .shadow(radius: 5)
             }
             
             

@@ -29,23 +29,23 @@ struct Movie: Identifiable, Codable, Hashable {
     let title: String
     let year: String
     let rated: String?
-    let released: String?
-    let imdbID: String?
+    let released: String
+    let imdbID: String
     let type: String
     let dvd: String?
     let boxOffice: String?
     let production: String?
-    let actors: String?
+    let actors: String
     let plot: String
     let language: String?
-    let country: String?
+    let country: String
     let awards: String?
     let poster: String?
     let metascore: String?
-    let runtime: String?
-    let genre: String?
-    let director: String?
-    let writer: String?
+    let runtime: String
+    let genre: String
+    let director: String
+    let writer: String
     let imdbRating: String?
     let imdbVotes: String?
     let website: String?
@@ -82,7 +82,8 @@ struct Movie: Identifiable, Codable, Hashable {
     }
 }
 
-struct Rating: Codable {
+struct Rating: Codable, Identifiable {
+    let id = UUID()
     let source: String
     let value: String
     

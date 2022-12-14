@@ -16,9 +16,7 @@ enum QueryType: String {
 class APIManager: APIManagerProtocol {
     
     static let apiHost = "www.omdbapi.com"
-    
-    
-    // Search API by imdbID
+
     
     func searchById(imdbID id: String) -> AnyPublisher<Movie, Error> {
         
@@ -48,6 +46,8 @@ class APIManager: APIManagerProtocol {
     }
     
     
+    //  This method build the request url from the query parameters
+    //  TODO: Put the apikey into keychain (even though it ends up getting url-encoded...)
     private func buildRequestUrl(queryType query: QueryType, with string: String) -> URL? {
         
         var urlComponents = URLComponents()
