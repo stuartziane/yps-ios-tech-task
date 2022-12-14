@@ -10,12 +10,19 @@ import SwiftUI
 struct MovieDetailView: View {
     
     let movie: SearchResultItem
-    let viewModel: ViewModel
+    
+    @ObservedObject var viewModel: ViewModel
+    
+    init(movie: SearchResultItem, viewModel: ViewModel) {
+        self.movie = movie
+        _viewModel = ObservedObject(wrappedValue: ViewModel(apiManager: viewModel.apiManager))
+    }
     
     var body: some View {
-        Text(movie.title)
+        Text(viewModel.detailViewMovie?.title ?? "")
             .onAppear {
                 print("Appeared")
+                viewModel.fetch(imdbID: movie.imdbID)
             }
     }
 }

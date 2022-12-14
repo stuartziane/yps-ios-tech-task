@@ -54,6 +54,7 @@ struct Movie: Identifiable, Codable, Hashable {
     
     let ratings: [Rating]
     
+    
     enum CodingKeys: String, CodingKey {
         case title = "Title"
         case year = "Year"
