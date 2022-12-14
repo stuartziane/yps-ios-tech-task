@@ -10,11 +10,9 @@ import SwiftUI
 @main
 struct movieDeetsApp: App {
     
-    @StateObject var viewModel = ViewModel(apiManager: APIManager())
-    
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: viewModel)
+            ContentView(apiManager: APIManager())
         }
     }
 }

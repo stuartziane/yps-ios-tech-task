@@ -15,7 +15,7 @@ enum QueryType: String {
 
 class APIManager {
     
-    static let apiHost = "www.ombdapi"
+    static let apiHost = "www.omdbapi.com"
     
     
     // Search API by imdbID
@@ -26,6 +26,7 @@ class APIManager {
             // We will throw a fatalError for now, but I'll tidy this up later
             fatalError()
         }
+        print(url.absoluteString)
         
         return URLSession.shared.dataTaskPublisher(for: url)
             .map(\.data)
@@ -42,6 +43,8 @@ class APIManager {
             fatalError()
         }
         
+        print(url.absoluteString)
+        
         return URLSession.shared.dataTaskPublisher(for: url)
             .map(\.data)
             .decode(type: SearchResult.self, decoder: JSONDecoder())
@@ -53,7 +56,7 @@ class APIManager {
     private func buildRequestUrl(queryType query: QueryType, with string: String) -> URL? {
         
         var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
+        urlComponents.scheme = "http"
         urlComponents.host = APIManager.apiHost
         urlComponents.path = "/"
         

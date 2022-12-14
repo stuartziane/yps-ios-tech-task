@@ -54,6 +54,7 @@
 		A0534EE3294A040000DFDC48 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
 		A0534EE6294A06FA00DFDC48 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		A0534EE9294A0E9D00DFDC48 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		A0534EEB294A183300DFDC48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +105,7 @@
 		A0534EAE2949FD7600DFDC48 /* movieDeets */ = {
 			isa = PBXGroup;
 			children = (
+				A0534EEB294A183300DFDC48 /* Info.plist */,
 				A0534EAF2949FD7600DFDC48 /* movieDeetsApp.swift */,
 				A0534EE5294A06E000DFDC48 /* NETWORKING */,
 				A0534EDE2949FF3F00DFDC48 /* MODELS */,
@@ -472,6 +474,7 @@
 				DEVELOPMENT_TEAM = R566S6QZ3L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = movieDeets/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -501,6 +504,7 @@
 				DEVELOPMENT_TEAM = R566S6QZ3L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = movieDeets/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

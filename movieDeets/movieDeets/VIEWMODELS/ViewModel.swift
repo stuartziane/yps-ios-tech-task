@@ -18,7 +18,7 @@ class ViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     
-    private let apiManager: APIManager
+    var apiManager: APIManager
     
     init(apiManager: APIManager) {
         self.apiManager = apiManager
@@ -33,6 +33,7 @@ class ViewModel: ObservableObject {
             .sink { completion in
                 switch completion {
                     case.finished:
+                        print("Finished!")
                         break
                     case .failure(let error):
                         print(error)
@@ -41,8 +42,13 @@ class ViewModel: ObservableObject {
                         self.alertShowing = true
                 }
             } receiveValue: { searchResult in
-                guard let results = searchResult.results else { return }
-                self.movies = results
+                print(searchResult.response!)
+                guard let results = searchResult.search else {
+                    print("There was a problem")
+                    return
+                }
+                print(results)
+                self.movies += results
             }
             .store(in: &cancellables)
         
