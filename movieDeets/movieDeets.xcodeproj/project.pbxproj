@@ -16,6 +16,7 @@
 		A0534ECD2949FD7700DFDC48 /* movieDeetsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0534ECC2949FD7700DFDC48 /* movieDeetsUITestsLaunchTests.swift */; };
 		A0534EE02949FF5D00DFDC48 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0534EDF2949FF5D00DFDC48 /* Movie.swift */; };
 		A0534EE22949FFC100DFDC48 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0534EE12949FFC100DFDC48 /* SearchResult.swift */; };
+		A0534EE4294A040000DFDC48 /* SearchResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0534EE3294A040000DFDC48 /* SearchResultItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		A0534ECC2949FD7700DFDC48 /* movieDeetsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = movieDeetsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A0534EDF2949FF5D00DFDC48 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		A0534EE12949FFC100DFDC48 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		A0534EE3294A040000DFDC48 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 			children = (
 				A0534EDF2949FF5D00DFDC48 /* Movie.swift */,
 				A0534EE12949FFC100DFDC48 /* SearchResult.swift */,
+				A0534EE3294A040000DFDC48 /* SearchResultItem.swift */,
 			);
 			path = MODELS;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				A0534EB22949FD7600DFDC48 /* ContentView.swift in Sources */,
 				A0534EB02949FD7600DFDC48 /* movieDeetsApp.swift in Sources */,
 				A0534EE22949FFC100DFDC48 /* SearchResult.swift in Sources */,
+				A0534EE4294A040000DFDC48 /* SearchResultItem.swift in Sources */,
 				A0534EE02949FF5D00DFDC48 /* Movie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
