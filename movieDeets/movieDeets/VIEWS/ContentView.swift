@@ -16,22 +16,23 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text(viewModel.movies.first?.title ?? "No Title")
+        NavigationStack {
+            ZStack {
+                Text("I'm a search bar!")
+                    .padding(.horizontal, 20)
+                Spacer()
+            }
+            
+            List {
+                ForEach(viewModel.movies, id: \.id) { result in
+                    Text(result.title)
+                }
+            }
+            .listStyle(.plain)
+            .onAppear {
+                viewModel.fetch(searchTerm: "Braveheart")
+            }
         }
-        .padding()
-        .onAppear {
-            self.viewModel.fetch(searchTerm: "Braveheart")
-        }
-        .alert(viewModel.alertTitle, isPresented: $viewModel.alertShowing) {
-            Button("OK", role: .cancel, action: {})
-        } message: {
-            Text(viewModel.alertBody)
-        }
-        .navigationBarTitleDisplayMode(.automatic)
     }
 }
 
