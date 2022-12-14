@@ -7,6 +7,9 @@
 
 import Foundation
 
+/*
+    This is the model used for the search result.
+*/
 
 struct SearchResult: Codable {
     let search: [SearchResultItem]?

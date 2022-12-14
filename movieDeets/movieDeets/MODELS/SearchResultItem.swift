@@ -7,10 +7,12 @@
 
 import Foundation
 
+//  Model used for the items in the search results
+
 struct SearchResultItem: Codable {
-    let title: String?
+    let title: String
     let year: String?
-    let imdbID: String?
+    let imdbID: String
     let type: String?
     let poster: String?
     
