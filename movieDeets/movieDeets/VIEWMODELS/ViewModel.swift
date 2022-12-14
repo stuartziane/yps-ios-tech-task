@@ -11,14 +11,17 @@ import Combine
 class ViewModel: ObservableObject {
     
     @Published var movies = [SearchResultItem]()
+    @Published var detailViewMovie = [Movie]()
     
     @Published var alertShowing: Bool = false
     @Published var alertTitle: String = ""
     @Published var alertBody: String = ""
     
+    
+    
     var cancellables = Set<AnyCancellable>()
     
-    var apiManager: APIManagerProtocol
+    private var apiManager: APIManagerProtocol
     
     init(apiManager: APIManagerProtocol) {
         self.apiManager = apiManager
@@ -48,6 +51,32 @@ class ViewModel: ObservableObject {
                 }
                 print(results)
                 self.movies = results
+            }
+            .store(in: &cancellables)
+        
+    }
+    
+    func fetch(imdbID: String) {
+        
+        self.detailViewMovie.removeAll()
+        
+        apiManager.searchById(imdbID: imdbID)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                switch completion {
+                    case.finished:
+                        print("Finished!")
+                        break
+                    case .failure(let error):
+                        print(error)
+                        self.alertTitle = "An error ocurred!"
+                        self.alertBody = "Please try again"
+                        self.alertShowing = true
+                }
+            } receiveValue: { searchResult in
+                
+                print(searchResult)
+                self.detailViewMovie.append(searchResult)
             }
             .store(in: &cancellables)
         

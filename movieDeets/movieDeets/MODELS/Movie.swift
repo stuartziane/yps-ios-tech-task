@@ -26,17 +26,17 @@ struct Movie: Identifiable, Codable, Hashable {
     
     
     var id = UUID()
-    let title: String?
-    let year: String?
+    let title: String
+    let year: String
     let rated: String?
     let released: String?
     let imdbID: String?
-    let type: String?
+    let type: String
     let dvd: String?
     let boxOffice: String?
     let production: String?
     let actors: String?
-    let plot: String?
+    let plot: String
     let language: String?
     let country: String?
     let awards: String?

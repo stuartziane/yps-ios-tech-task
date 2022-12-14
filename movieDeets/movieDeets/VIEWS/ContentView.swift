@@ -25,42 +25,22 @@ struct ContentView: View {
 
             List {
                 ForEach(viewModel.movies, id: \.id) { result in
-                    SearchResultRowView(result: result)
+                    NavigationLink(value: result) {
+                        SearchResultRowView(result: result)
+                    }
                 }
             }
             .listStyle(.plain)
-        }
-    }
-}
-
-
-struct SearchResultRowView: View {
-    
-    let result: SearchResultItem
-    
-    var body: some View {
-        HStack {
             
-            AsyncImage(url: URL(string: result.poster)) { image in
-                image
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .scaledToFit()
-            } placeholder: {
-                Image(systemName: "popcorn")
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .foregroundColor(.blue)
+            .navigationDestination(for: SearchResultItem.self) { movie in
+                MovieDetailView(movie: movie, viewModel: viewModel)
             }
-            
-            
-            VStack (alignment: .leading) {
-                Text(result.title)
-                    .font(.headline)
-                
-                Text(result.type)
-                Text(result.year)
+            .alert(viewModel.alertTitle, isPresented: $viewModel.alertShowing) {
+                Button("OK", role: .cancel, action: {})
+            } message: {
+                Text(viewModel.alertBody)
             }
+            .navigationBarTitleDisplayMode(.automatic)
         }
     }
 }
