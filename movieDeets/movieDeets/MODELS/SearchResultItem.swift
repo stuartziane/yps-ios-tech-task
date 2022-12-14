@@ -12,10 +12,10 @@ import Foundation
 struct SearchResultItem: Codable, Identifiable, Hashable {
     let id = UUID()
     let title: String
-    let year: String?
+    let year: String
     let imdbID: String
-    let type: String?
-    let poster: String?
+    let type: String
+    let poster: String
     
     enum CodingKeys: String, CodingKey {
         case title = "Title"

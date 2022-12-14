@@ -25,17 +25,42 @@ struct ContentView: View {
 
             List {
                 ForEach(viewModel.movies, id: \.id) { result in
-                    HStack {
-                        Image(systemName: "popcorn")
-                        VStack (alignment: .leading) {
-                            Text(result.title)
-                            Text(result.type ?? "")
-                            Text(result.year ?? "")
-                        }
-                    }
+                    SearchResultRowView(result: result)
                 }
             }
             .listStyle(.plain)
+        }
+    }
+}
+
+
+struct SearchResultRowView: View {
+    
+    let result: SearchResultItem
+    
+    var body: some View {
+        HStack {
+            
+            AsyncImage(url: URL(string: result.poster)) { image in
+                image
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .scaledToFit()
+            } placeholder: {
+                Image(systemName: "popcorn")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .foregroundColor(.blue)
+            }
+            
+            
+            VStack (alignment: .leading) {
+                Text(result.title)
+                    .font(.headline)
+                
+                Text(result.type)
+                Text(result.year)
+            }
         }
     }
 }
