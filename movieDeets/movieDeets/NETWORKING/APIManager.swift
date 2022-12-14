@@ -5,6 +5,7 @@
 //  Created by Stuart Ziane on 14/12/2022.
 //
 
+
 import Foundation
 import Combine
 
@@ -48,10 +49,11 @@ class APIManager: APIManagerProtocol {
     
     //  This method build the request url from the query parameters
     //  TODO: Put the apikey into keychain (even though it ends up getting url-encoded...)
-    private func buildRequestUrl(queryType query: QueryType, with string: String) -> URL? {
+    
+    func buildRequestUrl(queryType query: QueryType, with string: String) -> URL? {
         
         var urlComponents = URLComponents()
-        urlComponents.scheme = "http"
+        urlComponents.scheme = "http"       // App Transport Security set to 'allow arbitrary loads'
         urlComponents.host = APIManager.apiHost
         urlComponents.path = "/"
         

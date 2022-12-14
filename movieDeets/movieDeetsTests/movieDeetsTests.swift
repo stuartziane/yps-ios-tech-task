@@ -17,20 +17,21 @@ final class movieDeetsTests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func test_APIManager_canBuildValidUrlFromSearchString() throws {
+        let apiManager = APIManager()
+        
+        let url = apiManager.buildRequestUrl(queryType: .searchByTitle, with: "Test")
+        
+        XCTAssertEqual(url, URL(string: "http://www.omdbapi.com/?s=Test&plot=full&apikey=b620043c"))
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func test_APIManager_canBuildValidUrlFromImdbID() throws {
+        let apiManager = APIManager()
+        
+        let url = apiManager.buildRequestUrl(queryType: .searchById, with: "tt0112573")
+        
+        XCTAssertEqual(url, URL(string: "http://www.omdbapi.com/?i=tt0112573&plot=full&apikey=b620043c"))
     }
 
 }
