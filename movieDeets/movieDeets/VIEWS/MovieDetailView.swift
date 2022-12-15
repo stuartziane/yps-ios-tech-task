@@ -75,6 +75,10 @@ struct MovieDetailView: View {
                             .font(.title)
                             .fontWeight(.bold)
                             .padding(.bottom, 10)
+                            
+                            
+                        Text("Run time: \(viewModel.detailViewMovie?.runtime ?? "Unknown")")
+                            .padding(.bottom, 10)
                         
                         Text("Genre: \(viewModel.detailViewMovie?.genre ?? "Unknown")")
                             .padding(.bottom, 10)
