@@ -14,10 +14,10 @@ struct MovieDetailView: View {
     
     let movie: SearchResultItem
     
-    @ObservedObject var viewModel: ViewModel
+    @StateObject var viewModel: ViewModel
     
     init(movie: SearchResultItem, viewModel: ViewModel) {
-        _viewModel = ObservedObject(wrappedValue: ViewModel(apiManager: viewModel.apiManager))
+        _viewModel = StateObject(wrappedValue: ViewModel(apiManager: viewModel.apiManager))
         self.movie = movie
     }
     
