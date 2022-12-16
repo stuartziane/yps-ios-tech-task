@@ -14,12 +14,7 @@ struct MovieDetailView: View {
     
     let movie: SearchResultItem
     
-    @StateObject var viewModel: ViewModel
-    
-    init(movie: SearchResultItem, viewModel: ViewModel) {
-        _viewModel = StateObject(wrappedValue: ViewModel(apiManager: viewModel.apiManager))
-        self.movie = movie
-    }
+    @ObservedObject var viewModel: ViewModel
     
     var body: some View {
         
