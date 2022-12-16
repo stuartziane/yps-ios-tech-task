@@ -20,9 +20,11 @@ class ViewModel: ObservableObject {
     
     @Published var hasNetworkConnectivity: Bool = false
     
+    @Published var resultsLoading: Bool = false
+    
     var cancellables = Set<AnyCancellable>()
     
-    var apiManager: APIManagerProtocol
+    private let apiManager: APIManagerProtocol
     
     private let networkMonitor = NWPathMonitor()
     
@@ -33,6 +35,8 @@ class ViewModel: ObservableObject {
     }
     
     func fetch(searchTerm: String) {
+        
+        self.resultsLoading = true
         
         self.movies.removeAll()
         
@@ -55,12 +59,15 @@ class ViewModel: ObservableObject {
                     return
                 }
                 self.movies = results
+                self.resultsLoading = false
             }
             .store(in: &cancellables)
         
     }
     
     func fetch(imdbID: String) {
+        
+        self.resultsLoading = true
         
         apiManager.searchById(imdbID: imdbID)
             .receive(on: RunLoop.main)
@@ -75,6 +82,7 @@ class ViewModel: ObservableObject {
                 }
             } receiveValue: { searchResult in
                 self.detailViewMovie = searchResult
+                self.resultsLoading = false
             }
             .store(in: &cancellables)
         
