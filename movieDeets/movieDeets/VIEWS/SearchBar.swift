@@ -9,11 +9,7 @@ import SwiftUI
 
 struct SearchBar: View {
     
-    var viewModel: ViewModel
-    
-    init(viewModel: ViewModel) {
-        self.viewModel = viewModel
-    }
+    let viewModel: ViewModel
     
     @State private var searchText: String = ""
     

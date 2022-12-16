@@ -22,7 +22,7 @@ class ViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     
-    var apiManager: APIManagerProtocol
+    private let apiManager: APIManagerProtocol
     
     private let networkMonitor = NWPathMonitor()
     
