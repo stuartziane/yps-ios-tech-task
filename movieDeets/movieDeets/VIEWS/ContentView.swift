@@ -41,6 +41,7 @@ struct ContentView: View {
                 } else {
                     SearchBar(viewModel: viewModel)
                         .padding(.horizontal, 20)
+                        .padding(.top, 15)
                 }
                 Spacer()
             }

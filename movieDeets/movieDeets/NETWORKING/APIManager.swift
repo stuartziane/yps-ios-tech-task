@@ -53,7 +53,7 @@ class APIManager: APIManagerProtocol {
     func buildRequestUrl(queryType query: QueryType, with string: String?, page pageNumber: Int?) -> URL? {
         
         var urlComponents = URLComponents()
-        urlComponents.scheme = "http"       // App Transport Security set to 'allow arbitrary loads'
+        urlComponents.scheme = "https"       // App Transport Security set to 'allow arbitrary loads'
         urlComponents.host = APIManager.apiHost
         urlComponents.path = "/"
         
