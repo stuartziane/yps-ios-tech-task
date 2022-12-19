@@ -21,7 +21,7 @@ class APIManager: APIManagerProtocol {
     
     func searchById(imdbID id: String) -> AnyPublisher<Movie, Error> {
         
-        guard let url = buildRequestUrl(queryType: .searchById, with: id) else {
+        guard let url = buildRequestUrl(queryType: .searchById, with: id, page: nil) else {
             return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
         }
         
@@ -33,9 +33,9 @@ class APIManager: APIManagerProtocol {
     }
     
     
-    func searchByTitle(movieTitle title: String) -> AnyPublisher<SearchResult, Error> {
+    func searchByTitle(movieTitle title: String, page: Int) -> AnyPublisher<SearchResult, Error> {
         
-        guard let url = buildRequestUrl(queryType: .searchByTitle, with: title) else {
+        guard let url = buildRequestUrl(queryType: .searchByTitle, with: title, page: page) else {
             return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
         }
         
@@ -50,7 +50,7 @@ class APIManager: APIManagerProtocol {
     //  This method build the request url from the query parameters
     //  TODO: Put the apikey into keychain (even though it ends up getting url-encoded...)
     
-    func buildRequestUrl(queryType query: QueryType, with string: String) -> URL? {
+    func buildRequestUrl(queryType query: QueryType, with string: String?, page pageNumber: Int?) -> URL? {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "http"       // App Transport Security set to 'allow arbitrary loads'
@@ -62,6 +62,10 @@ class APIManager: APIManagerProtocol {
             URLQueryItem(name: "plot", value: "full"),
             URLQueryItem(name: "apikey", value: "b620043c")
         ]
+        
+        if pageNumber != nil {
+            urlComponents.queryItems?.insert(URLQueryItem(name: "Page", value: String(pageNumber!)), at: 2)
+        }
         
         return urlComponents.url
     }

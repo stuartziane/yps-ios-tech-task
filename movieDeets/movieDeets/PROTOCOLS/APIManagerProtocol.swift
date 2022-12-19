@@ -11,6 +11,6 @@ import Combine
 protocol APIManagerProtocol {
     
     func searchById(imdbID id: String) -> AnyPublisher<Movie, Error>
-    func searchByTitle(movieTitle title: String) -> AnyPublisher<SearchResult, Error>
+    func searchByTitle(movieTitle title: String, page: Int) -> AnyPublisher<SearchResult, Error>
     
 }

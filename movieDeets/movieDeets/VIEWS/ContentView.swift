@@ -13,6 +13,9 @@ struct ContentView: View {
     
     @State private var animate = false
     
+    @State private var animateLoadingText = false
+    
+    
     init(apiManager: APIManagerProtocol) {
         _viewModel = StateObject(wrappedValue: ViewModel(apiManager: apiManager))
     }
@@ -55,6 +58,26 @@ struct ContentView: View {
                         ForEach(viewModel.movies, id: \.id) { result in
                             NavigationLink(value: result) {
                                 SearchResultRowView(result: result)
+                            }
+                        }
+                        
+                        if viewModel.moreResultsAvailable {
+                            HStack {
+                                Spacer()
+                                VStack {
+                                    Text("loading more results")
+                                        .opacity(animateLoadingText ? 1.0 : 0.0)
+                                        .frame(height: 40)
+                                        
+                                }
+                                .foregroundColor(.blue)
+                                Spacer()
+                            }
+                            .onAppear {
+                                withAnimation(Animation.linear(duration: 0.5).repeatForever(autoreverses: true)) {
+                                    animateLoadingText.toggle()
+                                }
+                                viewModel.fetchNextPage()
                             }
                         }
                     } else {
