@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchBar: View {
     
-    let viewModel: ViewModel
+    @ObservedObject var viewModel: ViewModel
     
     @State private var searchText: String = ""
     
@@ -20,7 +20,8 @@ struct SearchBar: View {
     var body: some View {
         HStack {
             TextField("Search for a movie", text: $searchText)
-                .padding(.leading, 30)
+                .frame(height: 40)
+                .padding(.leading, 45)
                 .padding(10)
                 .background(Color(uiColor: .systemGray6))
                 .foregroundColor(.primary)
@@ -29,8 +30,8 @@ struct SearchBar: View {
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.words)
                 .onSubmit {
-                    
-                    viewModel.fetch(searchTerm: searchText)
+                    viewModel.searchTerm = searchText
+                    viewModel.fetch()
                     withAnimation {
                         self.isEditing = false
                     }
@@ -38,6 +39,8 @@ struct SearchBar: View {
                 .overlay {
                     HStack {
                         Image(systemName: "magnifyingglass.circle")
+                            .resizable()
+                            .frame(width: 30, height: 30)
                             .padding(.leading, 10)
                         
                         Spacer()
@@ -47,6 +50,9 @@ struct SearchBar: View {
                                 self.searchText = ""
                             } label: {
                                 Image(systemName: "multiply.circle.fill")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                
                             }
                             .padding(.trailing, 10)
                             

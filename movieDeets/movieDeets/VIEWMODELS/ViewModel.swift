@@ -11,6 +11,8 @@ import Network
 
 class ViewModel: ObservableObject {
     
+    @Published var searchTerm: String = ""
+    
     @Published var movies = [SearchResultItem]()
     @Published var detailViewMovie: Movie? = .none
     
@@ -21,8 +23,13 @@ class ViewModel: ObservableObject {
     @Published var hasNetworkConnectivity: Bool = false
     
     @Published var resultsLoading: Bool = false
+    @Published var isLoadingNextPage: Bool = false
+    @Published var moreResultsAvailable: Bool = false
     
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
+    
+    private var numberOfResultsPages = 0
+    private var currentPage = 1
     
     private let apiManager: APIManagerProtocol
     
@@ -34,13 +41,18 @@ class ViewModel: ObservableObject {
         self.setUpNetworkConnectivityMonitor()
     }
     
-    func fetch(searchTerm: String) {
+    func fetch() {
         
         self.resultsLoading = true
         
-        self.movies.removeAll()
+        if !isLoadingNextPage {
+            self.movies.removeAll()
+            self.currentPage = 1
+        }
         
-        apiManager.searchByTitle(movieTitle: searchTerm)
+        self.isLoadingNextPage = false
+        
+        apiManager.searchByTitle(movieTitle: searchTerm, page: currentPage)
             .receive(on: RunLoop.main)
             .sink { completion in
                 switch completion {
@@ -58,7 +70,11 @@ class ViewModel: ObservableObject {
                     self.alertShowing = true
                     return
                 }
-                self.movies = results
+                for movie in results {
+                    self.movies.append(movie)
+                }
+                
+                self.calculateNumberOfPagesOfAvailableResults(from: searchResult)
                 self.resultsLoading = false
             }
             .store(in: &cancellables)
@@ -118,5 +134,30 @@ class ViewModel: ObservableObject {
     }
     
     // TODO: Implement pagination
+    
+    func fetchNextPage() {
+        if self.currentPage < self.numberOfResultsPages {
+            self.isLoadingNextPage = true
+            self.moreResultsAvailable = true
+            self.currentPage += 1
+            self.fetch()
+        } else {
+            self.moreResultsAvailable = false
+        }
+    }
+    
+    private func calculateNumberOfPagesOfAvailableResults(from searchResult: SearchResult) {
+        
+        guard let numOfResultsString = searchResult.totalResults else { return }
+        guard let numResults = Int(numOfResultsString) else { return }
+        
+        let pagesAvailable = Int(ceil(Double(numResults) / 10))
+        
+        if pagesAvailable > 1 {
+            self.moreResultsAvailable = true
+        }
+        
+        self.numberOfResultsPages = pagesAvailable
+    }
     
 }

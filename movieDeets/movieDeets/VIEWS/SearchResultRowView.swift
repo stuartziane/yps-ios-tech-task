@@ -37,6 +37,8 @@ struct SearchResultRowView: View {
                     .font(.headline)
                     .padding(.bottom, 5)
                 Text(result.year)
+                    .fontWeight(.medium)
+                    .padding(.bottom, 5)
                 Text(result.type)
             }
             .padding(.leading, 20)
